@@ -1,0 +1,20 @@
+# This configuration file was found on the Space Station 14 core tech docs
+# https://docs.spacestation14.com/en/space-station-14/core-tech/destructible.html
+
+entities:
+  - id: "Wall"
+    name: "wall"
+    description: "Keeps the air in and the greytide out."
+    components:
+      - type: "Damageable"
+        resistances: "metallicResistances"
+      - type: "Destructible"
+        thresholds:
+          - trigger: 
+              damage: 300
+            behaviors:
+              - type: "SpawnEntity"
+                entity: "Girder"
+                count: 1
+              - type: "DoAction"
+                action: "Destruction"
