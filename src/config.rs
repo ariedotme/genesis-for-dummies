@@ -67,17 +67,14 @@ impl Config {
                 let config: Config = serde_yaml::from_str(&yaml_data)
                     .unwrap_or_else(|_| panic!("Failed to parse YAML: {:?}", file_path));
 
-                match config.entities {
-                    Some(entities) => {
-                        all_entities.extend(entities);
-                    }
-                    None => {}
+                if let Some(entities) = config.entities {
+                    all_entities.extend(entities);
                 }
             }
         });
 
         Self {
-            entities: Some(all_entities),
+            entities: (!all_entities.is_empty()).then_some(all_entities),
         }
     }
 }
